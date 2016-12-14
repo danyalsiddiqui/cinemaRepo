@@ -34,5 +34,5 @@ ReleaseDate:String
   .methods(['get', 'post', 'put', 'delete']);
  
 Resource.register(app, '/resources');
- 
-app.listen(3001);
+ var port=process.env.PORT;
+app.listen(port);
