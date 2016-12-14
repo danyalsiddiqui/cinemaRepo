@@ -36,3 +36,24 @@ ReleaseDate:String
 Resource.register(app, '/resources');
  var port=process.env.PORT;
 app.listen(port);
+/////////////////////////////////
+
+
+app.get('/listData', function (req, res) {
+
+  sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=iL6JhvLRbrPfKwQCCDQqbvmdH6G7PGetRQpM2iXfUsng4sgjNhgdq4rVy2bkWMbA;").then(function() {
+    // Query
+
+    new sql.Request().query('select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
+      console.dir(recordset);
+      res.end(JSON.stringify(recordset));
+    }).catch(function(err) {
+      // ... query error checks
+      console.log(err);
+    });});
+
+ /* fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+
+    res.end( data );
+  });*/
+})
