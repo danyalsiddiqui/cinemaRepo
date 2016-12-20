@@ -48,7 +48,7 @@ app.get('/listData', function (req, res) {
     // Query
 
     new sql.Request().query('select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
-      res.end(JSON.stringify(recordset));
+      res.json(recordset);
     }).catch(function(err) {
       // ... query error checks
       console.log(err);
