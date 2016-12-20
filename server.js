@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(methodOverride());
- 
+ app.set('JSON_CALLBACK', 'callback');
 mongoose.connect('mongodb://root:123@ds159767.mlab.com:59767/showtimes');
  
 var Resource = app.resource = restful.model('resource', mongoose.Schema({
@@ -48,7 +48,7 @@ app.get('/listData', function (req, res) {
     // Query
 
     new sql.Request().query('select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
-      res.json(recordset);
+      res.jsonp(recordset);
     }).catch(function(err) {
       // ... query error checks
       console.log(err);
