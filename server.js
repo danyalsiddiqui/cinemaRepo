@@ -47,7 +47,7 @@ app.get('/listData', function (req, res) {
   sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=iL6JhvLRbrPfKwQCCDQqbvmdH6G7PGetRQpM2iXfUsng4sgjNhgdq4rVy2bkWMbA;").then(function() {
     // Query
 
-    new sql.Request().query('select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
+    new sql.Request().query('select top(2) * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
       res.jsonp(recordset);
     }).catch(function(err) {
       // ... query error checks
