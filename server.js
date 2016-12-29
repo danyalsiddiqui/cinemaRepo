@@ -53,22 +53,8 @@ app.get('/listData', function (req, res) {
       // ... query error checks
       console.log(err);
     });});
-	
-	
-	app.get('/getMovies', function (req, res) {
-
-  sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
-    // Query
-
-    new sql.Request().query('select movieName  from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData] group by movieName').then(function(recordset) {
-      res.jsonp(recordset);
-    }).catch(function(err) {
-      // ... query error checks
-      console.log(err);
-    });});
 
  /* fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-
     res.end( data );
   });*/
 })
