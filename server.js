@@ -74,3 +74,54 @@ app.get('/getMovies', function (req, res) {
 
 
 })
+
+
+// to get the movies Details of specific movie
+app.get('/getMoviesbyMovieName/:movieName', function (req, res) {
+var movieName=req.params.movieName;
+    var queryStr='select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData] where  movieName=@movieName_parm';
+
+    sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
+        // Query
+        new sql.Request().input('movieName_parm',sql.NVarChar(),movieName).query(queryStr).then(function(recordset) {
+            //console.dir(recordset);
+            res.jsonp(recordset);
+        }).catch(function(err) {
+            // ... query error checks
+            console.log(err);
+        });});
+})
+
+
+// to get the movies Details of specific Cenima
+app.get('/getMoviesbyCenimaName/:cenima', function (req, res) {
+    var cenima=req.params.cenima;
+    var queryStr='select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData] where  cenima=@cenima_parm';
+
+    sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
+        // Query
+        new sql.Request().input('cenima_parm',sql.NVarChar(),cenima).query(queryStr).then(function(recordset) {
+            //console.dir(recordset);
+            res.jsonp(recordset);
+        }).catch(function(err) {
+            // ... query error checks
+            console.log(err);
+        });});
+})
+
+
+// to get all the  Cenima
+app.get('/getCenima', function (req, res) {
+    var queryStr='select cenima from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData] group by cenima';
+
+    sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
+        // Query
+        new sql.Request().query(queryStr).then(function(recordset) {
+            //console.dir(recordset);
+            res.jsonp(recordset);
+        }).catch(function(err) {
+            // ... query error checks
+            console.log(err);
+        });});
+})
+
