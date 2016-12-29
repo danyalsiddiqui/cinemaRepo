@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(methodOverride());
- app.set('JSON_CALLBACK', 'callback');
+ 
 mongoose.connect('mongodb://root:123@ds159767.mlab.com:59767/showtimes');
  
 var Resource = app.resource = restful.model('resource', mongoose.Schema({
@@ -41,20 +41,36 @@ app.listen(port);
 
 /////////////////////////////////
 
-
+// to get the schedule details
 app.get('/listData', function (req, res) {
 
   sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
     // Query
 
     new sql.Request().query('select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
-      res.jsonp(recordset);
+      //console.dir(recordset);
+      res.end(JSON.stringify(recordset));
     }).catch(function(err) {
       // ... query error checks
       console.log(err);
     });});
 
- /* fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-    res.end( data );
-  });*/
+
+})
+
+// to get the movies Details
+app.get('/getMovies', function (req, res) {
+
+    sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
+        // Query
+
+        new sql.Request().query('select movieName from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData] group by movieName').then(function(recordset) {
+            //console.dir(recordset);
+            res.end(JSON.stringify(recordset));
+        }).catch(function(err) {
+            // ... query error checks
+            console.log(err);
+        });});
+
+
 })
