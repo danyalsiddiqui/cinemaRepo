@@ -49,7 +49,7 @@ app.get('/listData', function (req, res) {
 
     new sql.Request().query('select * from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData]').then(function(recordset) {
       //console.dir(recordset);
-      res.end(JSON.stringify(recordset));
+     res.jsonp(recordset);
     }).catch(function(err) {
       // ... query error checks
       console.log(err);
@@ -66,7 +66,7 @@ app.get('/getMovies', function (req, res) {
 
         new sql.Request().query('select movieName from [db691ac76773fd41bc99dea65f007b6261].[dbo].[ScheduleData] group by movieName').then(function(recordset) {
             //console.dir(recordset);
-            res.end(JSON.stringify(recordset));
+           res.jsonp(recordset);
         }).catch(function(err) {
             // ... query error checks
             console.log(err);
