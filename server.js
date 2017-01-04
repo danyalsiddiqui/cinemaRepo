@@ -126,14 +126,30 @@ app.get('/getCenima', function (req, res) {
 })
 
 
-app.get('/filterByCenimaAndDate', function(req, res) {
-    var movie = req.param('movie');
+app.get('/filterByCinemaAndDate', function(req, res) {
+    var cenima = req.param('cinema');
     var date = req.param('date');
-    var queryStr='exec SP_FilterOnCenimaAandDate @movieName_parm,@date';
+    var queryStr='exec SP_FilterOnCenimaAndDate @cinema_parm,@date';
 
     sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
         // Query
-        new sql.Request().input('movieName_parm',sql.NVarChar(),movie).input('date',sql.Date,date).query(queryStr).then(function(recordset) {
+        new sql.Request().input('cinema_parm',sql.NVarChar(),cenima).input('date',sql.Date,date).query(queryStr).then(function(recordset) {
+            //console.dir(recordset);
+            res.jsonp(recordset);
+        }).catch(function(err) {
+            // ... query error checks
+            console.log(err);
+        });});
+
+});
+
+app.get('/filterByMovieName', function(req, res) {
+    var movie = req.param('movie');
+    var queryStr='exec SP_FilterOnMovies @movieName_parm';
+
+    sql.connect("Server=691ac767-73fd-41bc-99de-a65f007b6261.sqlserver.sequelizer.com;Database=db691ac76773fd41bc99dea65f007b6261;User ID=lkagkpksojppoyei;Password=8RncMgsmVu6eu2VCvRsSGQJPgNpcK6YykEYnvRbFD8YJcyLibYVLAqEqgE48YpHY;").then(function() {
+        // Query
+        new sql.Request().input('movieName_parm',sql.NVarChar(),movie).query(queryStr).then(function(recordset) {
             //console.dir(recordset);
             res.jsonp(recordset);
         }).catch(function(err) {
